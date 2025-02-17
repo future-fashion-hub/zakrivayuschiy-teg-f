@@ -8,13 +8,11 @@
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 */
 
-
-
 .page {
   min-inline-size: 320px;
   min-block-size: 100dvb;
   font-family: var(--main-font), sans-serif;
-  font-variation-settings: var(--normal-font-weight);
+  font-variation-settings: "wght" var(--normal-font-weight);
   background-image: var(--bg-image);
   background-attachment: fixed;
   background-size: cover;
@@ -34,6 +32,7 @@
   justify-content: center;
   align-items: center;
   margin-block-start: 100px;
+  border: 2px solid var(--bordered-color);
 }
 
 .logo {
@@ -45,6 +44,7 @@
 .header__title {
   font-size: clamp(3.0625rem, 2.7104rem + 1.5023vw, 4.0625rem);
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .header__description {
@@ -63,17 +63,21 @@
   inline-size: clamp(23.438rem, 30.516vw + 16.285rem, 43.75rem);
   height: 100%;
   display: grid;
+  border: 2px solid var(--bordered-color);
 }
 
 .card__title {
   font-size: var(--normal-font-size);
   padding: 5px 10px 4px 10px;
   line-height: 21.78px;
+  font-variation-settings: "wght" var(--bold-font-weight);
+  border-bottom: 2px solid var(--bordered-color);
 }
 
 .image__container {
   position: relative;
-  height: 100%;
+  width: 100%;
+  height: auto;
 }
 
 .html__label {
@@ -102,14 +106,18 @@
 }
 
 .card__image {
+  height: auto;
   width: 100%;
-  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .content {
   display: grid;
   gap: 25px;
   padding: 25px;
+  border-top: 2px solid var(--bordered-color);
 }
 
 .text {
@@ -125,10 +133,6 @@
   block-size: 38px;
 }
 
-.bordered {
-  border: 2px solid var(--bordered-color) ;
-}
-
 button {
   background-color: transparent;
 }
@@ -136,26 +140,36 @@ button {
 .button {
   position: relative;
   overflow: auto;
+  border: 2px solid var(--bordered-color);
+  cursor: pointer;
 }
 
 .button:focus {
   outline: none;
+}
+
+.button:focus-visible {
   box-shadow: 2px 2px 0px 0px rgba(0, 0, 0, 1);
   transition: box-shadow .3s ease;
 }
 
-.button:hover::after {
+.button::before {
   content: '';
   position: absolute;
   inset: 0;
   background-color: var(--buton-hover-color);
   width: 100%;
   height: 100%;
-  animation: button-bg .5s ease-in-out;
+  transform: translateX(-100%);
+  transition: transform 0.5s ease-in-out;
+}
+
+.button:hover::before {
+  transform: translateX(0);
 }
 
 .card__like-button {
-  width: 130px;
+  min-width: 130px;
 }
 
 .button__text {
@@ -188,68 +202,62 @@ button {
 
 .core {
   fill: transparent;
-  transition-delay: 0.03s;
-  transition-duration: 0.3s;
+  transition: fill .3s linear .03s;
 }
 
 .contour {
   fill: var(--heart-contour-color, #000);
-  transition-duration: 0.1s;
+  transition: fill .1s linear;
 }
 
 .like-icon:hover .core {
   fill: var(--heart-contour-color, #000);
-  transition-delay: 0;
-  transition-duration: 0.3s;
+  transition: fill .3s linear;
+
 }
 
 .like-icon:active .core {
   fill: var(--heart-main-color, #ff0000);
-  transition-delay: 0;
-  transition-duration: 0.3s;
+  transition: fill .3s linear;
 }
 
 .main-body {
   fill: transparent;
-  transition-duration: 0.3s;
+  transition: fill .3s linear;
 }
 
 .like-icon:hover .main-body {
   fill: var(--heart-contour-color, #000); 
-  transition-duration: 0.3s;
-  transition-delay: 0.05s;
+  transition: fill .3s linear .05s;
 }
 
 .like-icon:active .main-body {
   fill: var(--heart-main-color, #ff0000); 
-  transition-duration: 0.3s;
-  transition-delay: 0.05s;
+  transition: fill .3s linear .05s;
 }
 
 .like-icon.is-liked .core {
   fill: var(--heart-main-color, #ff0000);
-  transition-duration: 0.3s;
+  transition: fill .3s linear;
 }
 
 .like-icon.is-liked .main-body {
   fill: var(--heart-main-color, #ff0000); 
-  transition-duration: 0.3s;
-  transition-delay: 0.05s;
+  transition: fill .3s linear .05s;
 }
 
 .like-icon.is-liked .contour {
   fill: var(--heart-main-color, #ff0000);
-  transition-duration: 0.3s;
-  transition-delay: 0.06s;
+  transition: fill .3s linear .06s;
 }
 
 .like-icon.is-liked .sparks {
-  animation: sparks 0.3s ease-in;
+  animation: sparksOpacitySwitch 0.3s ease-in alternate;
   animation-delay: 0.3s;
 }
 
 .is-liked .heart {
-  animation: upscale 0.3s ease-in;
+  animation: heartScaleUp 0.3s ease-in alternate;
   animation-delay: 0.1s;
   transform-origin: center;
 }
@@ -293,7 +301,7 @@ button {
   gap: 8px;
   padding: 15px 21px 15px 19px;
   margin-block-start: 50px;
-  margin-block-end: 100px;
+  margin-block-end: 103px;
   background-color: var(--save-bg-color, #fff);
 }
 
@@ -316,7 +324,7 @@ button {
   width: 39px;
 }
 
-.dialog__window[open] .dialog__content {
+.dialog__content {
   display: flex;
   align-items: center;
   gap: 20px;
@@ -330,7 +338,7 @@ button {
   text-transform: uppercase;
 }
 
-.ok__button {
+.confirm__button {
   display: flex; 
   justify-self: center;
   justify-content: center;
@@ -341,7 +349,8 @@ button {
 }
 
 .dialog__window[open]::backdrop {
-  backdrop-filter: brightness(20%);
+  background-color: #000;
+  opacity: 0.75;
 }
 
 @media (width <= 375px) {
@@ -361,13 +370,10 @@ button {
   .save__button {
     display: grid;
     justify-items: center;
+    margin-block-end: 100px;
   }
 
   .save__button svg {
     width: 28px;
   }
 }
-
-
-
-

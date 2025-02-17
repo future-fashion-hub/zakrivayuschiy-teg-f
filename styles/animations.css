@@ -8,31 +8,22 @@
 ✦ is-liked — для обозначения состояния лайкнутой иконки в виде сердца
 ✦ button__text — для обозначения текстового элемента внутри кнопки
 
-*/@keyframes button-bg {
-  from {
-    transform: translateX(-100%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
+*/
+@keyframes heartScaleUp {
+    from {
+      transform: scale(1);
+    }
+    
+    to {
+      transform: scale(1.25);
+    }
 }
-
-@keyframes upscale {
-  from {
-    transform: scale(1);
-  }
   
-  to {
-    transform: scale(1.25);
-  }
-}
-
-@keyframes sparks {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+@keyframes sparksOpacitySwitch {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
 }
